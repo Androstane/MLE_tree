@@ -1,6 +1,6 @@
 
 import ete3
-from ete3 import tree
+from ete3 import Tree
 import numpy 
 
 # Pick a random

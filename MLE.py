@@ -73,8 +73,7 @@ def MLE(path, niter, return_condition, n_tree, orig_time):
                 update = True
 
         if move_id == 1:
-            move = np.random.choice([u
-                niform, lognormal])
+            move = np.random.choice([uniform, lognormal])
             suggest_tree = move(tree)
             if next_move == 0:
                 p_i, M_i = felsenstein_m(suggest_tree, profile, n_states, orig_time)
