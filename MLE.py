@@ -60,7 +60,7 @@ def MLE(path, niter, return_condition, n_tree, orig_time):
 		print('iter', i)
 		update = False
 		next_move = predict_move()
-	   if move_id == 0: 
+	  	if move_id == 0: 
 			root = tree[-1]
 			orig_time_new = numpy.random.exponential(root.height)
 			orig_time_new = np.rint(orig_time_new)
