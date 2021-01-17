@@ -46,7 +46,7 @@ def recurse_likelihood(node, site_i, n_states):
 def transition_probability(child, ancestor, time):
     if time == 0: 
         return 0
-    rate = 1
+    rate = 0.1
     if ancestor == 0:
         if child != 0:
             return 0 
@@ -84,10 +84,10 @@ def edge_dep_tp(child, ancestor, l):
 
 
 #tree: ete3 tree object 
-#q_matrix: the rate matrix 
 #profile: dictionary with key = node name, value = cna profile 
-#mu: substitution per unit time 
-def felsenstein(tree, profile, n_states):
+#n_states: how many possible cna states to consider 
+#orig_time: time from root to its single child. 
+def felsenstein(tree, profile, n_states, orig_time):
     log_likelihood = 0.0
     for node in tree.traverse():
         # initialize a vector of partial likelihoods that we can reuse for each site
@@ -99,7 +99,11 @@ def felsenstein(tree, profile, n_states):
         recurse_likelihood(tree, site_i, n_states)
         # assume the root is diploid
         #print(tree.partial_likelihoods)
-        log_likelihood += np.log(tree.partial_likelihoods[2])
+        #log_likelihood += np.log(tree.partial_likelihoods[2])
+        orig_likelihood = 0
+        for child_state in range(n_states):
+                orig_likelihood += edge_dep_tp(child_state, 2, orig_time) * tree.partial_likelihoods[child_state]
+        log_likelihood += np.log(orig_likelihood)
     return log_likelihood
 
 

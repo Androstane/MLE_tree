@@ -7,6 +7,10 @@ def hamming(a, b):
     s = np.count_nonzero(n)
     return s    
     
+def L1(a, b):
+    n = a - b
+    s = sum(np.absolute(n))
+    return s
 def parse(path):
     cnp = pd.read_csv(path + '/gt.cnp', sep = '\t')
     cnp.drop(cnp.columns[[0,1,2]], axis = 1, inplace = True) 
@@ -17,7 +21,7 @@ def parse(path):
     dist = np.zeros((L,L))
     for i in range(0, len(M)):
         for j in range(0, len(M)): 
-            value = hamming(M[i], M[j])
+            value = L1(M[i], M[j])
             dist[i][j] = value
             dist[j][i] = value
     leaf_name = list(cnp.columns.values) 
