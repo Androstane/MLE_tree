@@ -17,7 +17,7 @@ def predict_move():
     if i < 1/6: 
         return 0
     #modify edge
-    if 1/6 <= i & i < 1/2:
+    if 1/6 <= i and i < 1/2:
         return 1
     #modify topology
     else:
