@@ -106,6 +106,27 @@ def felsenstein(tree, profile, n_states, orig_time):
         log_likelihood += np.log(orig_likelihood)
     return log_likelihood
 
+def felsenstein_m(tree, profile, n_states, orig_time):
+    M = []
+    log_likelihood = 0.0
+    for node in tree.traverse():
+        # initialize a vector of partial likelihoods that we can reuse for each site
+        node.partial_likelihoods = np.zeros(n_states)
+        if node.is_leaf():
+            node.sequence = profile[node.name]
+    site_count = len(list(profile.values())[0])
+    for site_i in range(site_count):
+        recurse_likelihood(tree, site_i, n_states)
+        # assume the root is diploid
+        #print(tree.partial_likelihoods)
+        #log_likelihood += np.log(tree.partial_likelihoods[2])
+        orig_likelihood = 0
+        M.append(tree.partial_likelihoods)
+        for child_state in range(n_states):
+                orig_likelihood += edge_dep_tp(child_state, 2, orig_time) * tree.partial_likelihoods[child_state]
+        log_likelihood += np.log(orig_likelihood)
+    return log_likelihood, M
+
 
 def add_edgeL(tree):
     for node in tree.iter_descendants("postorder"):
