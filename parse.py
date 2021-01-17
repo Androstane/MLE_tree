@@ -24,6 +24,9 @@ def parse(path):
             value = L1(M[i], M[j])
             dist[i][j] = value
             dist[j][i] = value
-    leaf_name = list(cnp.columns.values) 
+    #leaf_name = list(cnp.columns.values) 
     d = cnp.to_dict('list')
+    d2 = {tuple(v): k for k, v in d.items()}  # exchange keys, values
+    d = {v: list(k) for k, v in d2.items()}   # exchange again
+    leaf_name = list(d.keys())
     return path, dist, leaf_name, d

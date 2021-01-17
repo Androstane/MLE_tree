@@ -36,8 +36,7 @@ def prob_from_root(M, orig_time):
 
 def MLE(path, niter, return_condition, n_tree, orig_time): 
     out, dist_matrix, leaf_name, profile = parse(path)
-    NJ_tree = NJ(dist_matrix, leaf_name,
-     out)
+    NJ_tree = NJ(dist_matrix, leaf_name,out)
     #print(NJ_tree)
     NJ_tree = add_edgeL(NJ_tree)
     tree = NJ_tree
@@ -122,7 +121,7 @@ def MLE(path, niter, return_condition, n_tree, orig_time):
         move_id = next_move
 
 
-    return tree, p, orig_time
+    return tree, p, orig_time, leaf_name
 
 
 if __name__ == "__main__":
@@ -130,6 +129,7 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("-in","--path to input",required=True, help="Path to the input folder containing the copy number profiles ")
     ap.add_argument("-niter","--number of iteration",required=False, help="number of iteration, default to 1 ")
+    args = vars(ap.parse_args())
     if args['path to input']!=None:
         path = args['path to input']
     if args['number of iteration']!=None:
@@ -138,7 +138,7 @@ if __name__ == "__main__":
         niter = 1
     f = open(path + 'out.txt', 'w+')
     sys.stdout = f
-    T, prob, orig_time= MLE(path, niter, 5, 1, 1.0)  
+    T, prob, orig_time, leaf_name = MLE(path, niter, 5, 1, 1.0)  
     tree_file = path + '/mle_tree.nw'
     T.write(format=9, outfile=tree_file)
     ff = open(tree_file, "w+")
@@ -146,8 +146,11 @@ if __name__ == "__main__":
     ff.write(str(prob))
     ff.write("\n")
     ff.write(str(orig_time))
+    ff.write("\n")
+    ff.write(leaf_name)
     ff.close()
     print("prob:", prob)
+    print("leaf name:", leaf_name)
     print("orig_time", orig_time)
     print(T.write(format = 9))
     sys.stdout = orig_stdout
