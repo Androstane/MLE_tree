@@ -8,7 +8,7 @@ import numpy
 # uniformly distributed between its parent and elder child
 def uniform(tree_nodes):
 	for node in tree_nodes:
-		node.height = node.get_farthest_node(topology_only=False)
+		node.height = node.get_farthest_node(topology_only=False)[1]
 	n_tips = len(tree_nodes.get_leaves())
 	internal_i = n_tips + numpy.random.randint(n_tips - 2)
 
@@ -54,7 +54,7 @@ def exponential(tree_nodes):
 def lognormal(tree_nodes):
 	scaler = numpy.exp(numpy.random.normal(loc = -0.5))
 	for node in tree_nodes:
-		node.height = node.get_farthest_node(topology_only=False)
+		node.height = node.get_farthest_node(topology_only=False)[1]
 		node.height *= scaler
 		node.dist *= scaler
 		#node.new_dist = True

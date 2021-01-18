@@ -69,6 +69,7 @@ def MLE(path, niter, return_condition, n_tree, orig_time):
                 p_i = prob_from_root(M, orig_time_new)
             if p_i > p: 
                 orig_time = orig_time_new
+                print("Accept tree after change orig_time at ", i, "th iteration", "with probability of ", p)
                 update = True
 
         if move_id == 1:
@@ -83,6 +84,7 @@ def MLE(path, niter, return_condition, n_tree, orig_time):
                 tree = suggest_tree
                 p = p_i
                 M = M_i
+                print("Accept tree after new edge length at ", i, " th iteration", "with probability of ", p)
                 update = True
         else: 
             if count < spr_thr:
@@ -98,6 +100,7 @@ def MLE(path, niter, return_condition, n_tree, orig_time):
                         if random.random() < p_i/p:
                             tree = t_i
                             p = p_i 
+                            print("Accept tree after NNI at ", i, "th iteration", "with probability of ", p)
                             update = True
                             count = 0
             else:
@@ -113,6 +116,7 @@ def MLE(path, niter, return_condition, n_tree, orig_time):
                         if random.random() < p_i/p:
                             tree = t_i
                             p = p_i
+                            print("Accept tree after SPR at ", i, "th iteration", "with probability of ", p)
                             update = True
                             count = 0
         if not update: 
@@ -133,7 +137,7 @@ if __name__ == "__main__":
     if args['path to input']!=None:
         path = args['path to input']
     if args['number of iteration']!=None:
-        niter = args['number of iteration']
+        niter = int(args['number of iteration'])
     else: 
         niter = 1
     f = open(path + 'out.txt', 'w+')

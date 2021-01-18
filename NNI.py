@@ -65,16 +65,16 @@ def Main(in_tree, N):
 	tree_list = []
 	nodes = []
 	internal_names = gen_unique_ids(num=len(in_tree)-2)
-	print(len(in_tree))
-	print(in_tree)
+	#print(len(in_tree))
+	#print(in_tree)
 	c = 0
 	for node in in_tree.traverse():
 		if (not node.is_root()) and (not node.is_leaf()):
 			c+=1
-		print(len(node.get_children()))
-	print("number of internal nodes "+str(c))
-	print(len(in_tree.get_tree_root().get_children()))
-	print(in_tree.write(format=9))
+		#print(len(node.get_children()))
+	#print("number of internal nodes "+str(c))
+	#print(len(in_tree.get_tree_root().get_children()))
+	#print(in_tree.write(format=9))
 	selected_names = []
 	# lst_branches = list_branches(tree=tr)
 	if len(in_tree)<=2:
