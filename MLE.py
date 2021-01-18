@@ -1,4 +1,4 @@
-from funcs import NJ, add_edgeL, felsenstein
+from funcs import NJ, add_edgeL, felsenstein, felsenstein_m
 from parse import parse
 import numpy as np
 import random
@@ -48,7 +48,7 @@ def MLE(path, niter, return_condition, n_tree, orig_time):
     if move_id == 0:
         p, M = felsenstein_m(tree, profile, n_states, orig_time)
     else:
-        p = felsenstein(tree, profile, n_states) 
+        p = felsenstein(tree, profile, n_states, orig_time) 
         M = False
     count = 0
     spr_thr = 5
@@ -140,7 +140,7 @@ if __name__ == "__main__":
         niter = int(args['number of iteration'])
     else: 
         niter = 1
-    f = open(path + 'out.txt', 'w+')
+    f = open(path + '/out.txt', 'w+')
     sys.stdout = f
     T, prob, orig_time, leaf_name = MLE(path, niter, 5, 1, 1.0)  
     tree_file = path + '/mle_tree.nw'
