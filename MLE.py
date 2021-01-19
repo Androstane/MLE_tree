@@ -40,7 +40,7 @@ def MLE(path, niter, return_condition, n_tree, orig_time):
     #print(NJ_tree)
     NJ_tree = add_edgeL(NJ_tree)
     tree = NJ_tree
-    for node in tree_nodes.traverse("postorder"):
+    for node in tree.traverse("postorder"):
         node.height = node.get_farthest_node(topology_only=False)[1]
     #start of iteration
     i = 0
