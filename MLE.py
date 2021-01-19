@@ -60,7 +60,7 @@ def MLE(path, niter, return_condition, n_tree, orig_time):
         update = False
         next_move = predict_move()
         if move_id == 0: 
-            root = tree[-1]
+            root = tree.get_tree_root()
             orig_time_new = numpy.random.exponential(root.height)
             orig_time_new = np.rint(orig_time_new)
             if M is False:
@@ -72,7 +72,7 @@ def MLE(path, niter, return_condition, n_tree, orig_time):
                 print("Accept tree after change orig_time at ", i, "th iteration", "with probability of ", p)
                 update = True
 
-        if move_id == 1:
+        else if move_id == 1:
             move = np.random.choice([uniform, lognormal])
             suggest_tree = move(tree)
             if next_move == 0:

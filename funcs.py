@@ -106,6 +106,9 @@ def felsenstein(tree, profile, n_states, orig_time):
         log_likelihood += np.log(orig_likelihood)
     return log_likelihood
 
+
+
+
 def felsenstein_m(tree, profile, n_states, orig_time):
     M = []
     log_likelihood = 0.0
