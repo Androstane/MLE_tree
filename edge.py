@@ -36,6 +36,7 @@ def uniform(tree_nodes):
 	internal.new_dist = True
 	left_child.new_dist = True
 	right_child.new_dist = True
+	return tree_nodes
 
 # Pick a new root height from the distribution x + exp(1/x) where x is the
 # height of the oldest non-root internal node.
@@ -54,6 +55,7 @@ def exponential(tree_nodes):
 
 	left_child.new_dist = True
 	right_child.new_dist = True
+	return tree_nodes
 
 # Scale all nodes in the tree following a lognormal distribution
 # (logmean = -1/2, sd = 1) which has a mean of 1.
@@ -64,3 +66,4 @@ def lognormal(tree_nodes):
 		node.height *= scaler
 		node.dist *= scaler
 		#node.new_dist = True
+	return tree_nodes

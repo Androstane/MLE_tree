@@ -40,6 +40,8 @@ def MLE(path, niter, return_condition, n_tree, orig_time):
     #print(NJ_tree)
     NJ_tree = add_edgeL(NJ_tree)
     tree = NJ_tree
+    for node in tree_nodes.traverse("postorder"):
+        node.height = node.get_farthest_node(topology_only=False)[1]
     #start of iteration
     i = 0
     n_states = np.max(list(profile.values())) + 1
@@ -72,7 +74,7 @@ def MLE(path, niter, return_condition, n_tree, orig_time):
                 print("Accept tree after change orig_time at ", i, "th iteration", "with probability of ", p)
                 update = True
 
-        else if move_id == 1:
+        elif move_id == 1:
             move = np.random.choice([uniform, lognormal])
             suggest_tree = move(tree)
             if next_move == 0:
