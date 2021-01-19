@@ -2,6 +2,7 @@
 import ete3
 from ete3 import Tree
 import numpy 
+import random
 
 # Pick a random
 # non-root internal node and pick a new random height
@@ -9,10 +10,15 @@ import numpy
 def uniform(tree_nodes):
 	for node in tree_nodes:
 		node.height = node.get_farthest_node(topology_only=False)[1]
-	n_tips = len(tree_nodes.get_leaves())
-	internal_i = n_tips + numpy.random.randint(n_tips - 2)
-
-	internal = tree_nodes[internal_i]
+	#n_tips = len(tree_nodes.get_leaves())
+	L = []
+	for node in tree.traverse("postorder"):	
+	    if node.is_leaf() == False:
+	        L.append(node)
+	internal_i = random.randint(0,len(L)-2)
+	internal = L[internal_i]
+	#internal_i = n_tips + numpy.random.randint(n_tips - 2)
+	#internal = tree_nodes[internal_i]
 	parent = internal.up
 
 	left_child, right_child = internal.children
