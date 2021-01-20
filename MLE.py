@@ -1,4 +1,4 @@
-from funcs import NJ, add_edgeL, felsenstein, felsenstein_m
+from funcs import NJ, add_edgeL, felsenstein, felsenstein_m, edge_dep_tp
 from parse import parse
 import numpy as np
 import random
@@ -63,7 +63,7 @@ def MLE(path, niter, return_condition, n_tree, orig_time):
         next_move = predict_move()
         if move_id == 0: 
             root = tree.get_tree_root()
-            orig_time_new = numpy.random.exponential(root.height)
+            orig_time_new = np.random.exponential(root.height)
             orig_time_new = np.rint(orig_time_new)
             if M is False:
                 pi, M = felsenstein_m(tree, profile, n_states, orig_time)

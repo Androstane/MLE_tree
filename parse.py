@@ -17,6 +17,7 @@ def parse(path):
     cnp.columns = cnp.columns.str.replace(' ', '')
     M = cnp.values
     M = M.transpose()
+    M[M > 6] = 6
     L = len(M)
     dist = np.zeros((L,L))
     for i in range(0, len(M)):
